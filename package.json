@@ -1,0 +1,29 @@
+{
+    "name": "blogs-site",
+    "version": "1.0.0",
+    "description": "This is an application for blogs post",
+    "main": "dist/index.js",
+    "scripts": {
+        "dev": "nodemon src/index.ts",
+        "start": "ts-node src/index.ts",
+        "test": "echo \"Error: no test specified\" && exit 1"
+    },
+    "keywords": [
+        "#blog"
+    ],
+    "author": "Souvik Ghosh",
+    "license": "ISC",
+    "dependencies": {
+        "@types/express": "^5.0.6",
+        "express": "^5.2.1",
+        "nodemon": "^3.1.14",
+        "pg": "^8.20.0",
+        "reflect-metadata": "^0.2.2",
+        "ts-node": "^10.9.2",
+        "typeorm": "^0.3.29",
+        "typescript": "^6.0.3"
+    },
+    "devDependencies": {
+        "@types/node": "^25.8.0"
+    }
+}
