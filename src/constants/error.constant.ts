@@ -1,0 +1,16 @@
+export const ErrorConstant = {
+    BAD_REQUEST: "Bad request. Please check your inputs.",
+    UNAUTHORIZED: "Unauthorized access.",
+    FORBIDDEN: "Forbidden access.",
+    NOT_FOUND: "Resource not found.",
+    CONFLICT: "Resource already exists.",
+    INTERNAL_SERVER_ERROR: "An unexpected error occurred.",
+    BLOG_NOT_FOUND: "Blog not found.",
+    BLOG_ALREADY_EXISTS: "Blog already exists.",
+    INVALID_BLOG_ID: "Invalid blog ID.",
+    REQUIRED_FIELDS_MISSING: "Title, content, and author are required.",
+    STUDENT_NOT_FOUND: "Student not found.",
+    STUDENT_ALREADY_EXISTS: "Student already exists.",
+    INVALID_STUDENT_DATA: "Invalid student data.",
+    STUDENT_ID_REQUIRED: "Student id is required.",
+};

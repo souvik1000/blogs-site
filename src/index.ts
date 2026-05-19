@@ -2,6 +2,7 @@ import "reflect-metadata"
 import express from "express"
 
 import rootRouter from "./routes"
+import { errorHandler } from "./utils/error"
 import { AppDataSource } from "./config/data-source"
 import studentRouter from "./practice/day-one-wodb/student.route"
 
@@ -13,6 +14,8 @@ app.use("/api/v1", rootRouter)
 
 // TODO: remove these routes after training
 app.use("/api/v1/student", studentRouter)
+
+app.use(errorHandler)
 
 AppDataSource.initialize()
     .then(() => {

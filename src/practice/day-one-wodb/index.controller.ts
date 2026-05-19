@@ -1,10 +1,13 @@
 import { Request, Response } from "express"
 
 import { Student } from "./student.model"
+import { StatusCode } from "../../enums/statusCode"
+import { AppError, asyncHandler } from "../../utils/error"
+import { ErrorConstant } from "../../constants/error.constant"
 
 const students: Student[] = []
 
-export const getStudents = (req: Request, res: Response) => {
+export const getStudents = asyncHandler((req: Request, res: Response) => {
     const { limit, page, search } = req.query ?? {}
 
     let pageVal = Number(page) || 1
@@ -29,7 +32,7 @@ export const getStudents = (req: Request, res: Response) => {
     const nextPage = pageVal < totalPages ? pageVal + 1 : null
     const prevPage = pageVal > 1 && pageVal <= totalPages ? pageVal - 1 : null
 
-    res.status(200).json({
+    res.status(StatusCode.OK).json({
         message: "All students fetched successfully",
         data: limitedStudents,
         meta: {
@@ -41,35 +44,41 @@ export const getStudents = (req: Request, res: Response) => {
             totalCount: filteredStudents.length,
         },
     })
-}
+})
 
-export const getStudentById = (req: Request, res: Response) => {
+export const getStudentById = asyncHandler((req: Request, res: Response) => {
     const { id } = req.params ?? {}
 
     if (!id) {
-        res.status(400).json({ message: "Student id is required" })
-        return
+        throw new AppError(
+            StatusCode.BAD_REQUEST,
+            ErrorConstant.STUDENT_ID_REQUIRED,
+        )
     }
 
     const student = students.find((student) => student.id === Number(id))
 
     if (!student) {
-        res.status(404).json({ message: "Student not found" })
-        return
+        throw new AppError(
+            StatusCode.NOT_FOUND,
+            ErrorConstant.STUDENT_NOT_FOUND,
+        )
     }
 
-    res.status(200).json({
+    res.status(StatusCode.OK).json({
         message: "Student fetched successfully",
         data: student,
     })
-}
+})
 
-export const addStudent = (req: Request, res: Response) => {
+export const addStudent = asyncHandler((req: Request, res: Response) => {
     const { name, age, cgpa, isPlaced } = req.body ?? {}
 
-    if (!name || !age || !cgpa || !isPlaced) {
-        res.status(400).json({ message: "Invalid student data" })
-        return
+    if (!name || !age || !cgpa || isPlaced === undefined) {
+        throw new AppError(
+            StatusCode.BAD_REQUEST,
+            ErrorConstant.INVALID_STUDENT_DATA,
+        )
     }
 
     if (
@@ -78,11 +87,13 @@ export const addStudent = (req: Request, res: Response) => {
                 student.name.toLocaleLowerCase() === name.toLocaleLowerCase(),
         )
     ) {
-        res.status(409).json({ message: "Student already exists" })
-        return
+        throw new AppError(
+            StatusCode.CONFLICT,
+            ErrorConstant.STUDENT_ALREADY_EXISTS,
+        )
     }
 
-    const student = {
+    const student: Student = {
         age,
         cgpa,
         isPlaced,
@@ -91,21 +102,23 @@ export const addStudent = (req: Request, res: Response) => {
     }
 
     students.push(student)
-    res.status(201).json({
+    res.status(StatusCode.CREATED).json({
         message: "Student added successfully",
         data: student,
     })
-}
+})
 
-export const updateStudent = (req: Request, res: Response) => {
+export const updateStudent = asyncHandler((req: Request, res: Response) => {
     const { id } = req.params ?? {}
     const { name, age, cgpa, isPlaced } = req.body ?? {}
 
     const student = students.find((student) => student.id === Number(id))
 
     if (!student) {
-        res.status(404).json({ message: "Student not found" })
-        return
+        throw new AppError(
+            StatusCode.NOT_FOUND,
+            ErrorConstant.STUDENT_NOT_FOUND,
+        )
     }
 
     student.age = age ?? student.age
@@ -113,33 +126,40 @@ export const updateStudent = (req: Request, res: Response) => {
     student.cgpa = cgpa ?? student.cgpa
     student.isPlaced = isPlaced ?? student.isPlaced
 
-    students[Number(id)] = student
+    const index = students.findIndex((s) => s.id === Number(id))
+    if (index !== -1) {
+        students[index] = student
+    }
 
-    res.status(201).json({
+    res.status(StatusCode.CREATED).json({
         message: "Student updated successfully",
         data: student,
     })
-}
+})
 
-export const deleteStudent = (req: Request, res: Response) => {
+export const deleteStudent = asyncHandler((req: Request, res: Response) => {
     const { id } = req.params ?? {}
 
     if (!id) {
-        res.status(400).json({ message: "Invalid student data" })
-        return
+        throw new AppError(
+            StatusCode.BAD_REQUEST,
+            ErrorConstant.INVALID_STUDENT_DATA,
+        )
     }
 
     const student = students.find((student) => student.id === Number(id))
 
     if (!student) {
-        res.status(404).json({ message: "Student not found" })
-        return
+        throw new AppError(
+            StatusCode.NOT_FOUND,
+            ErrorConstant.STUDENT_NOT_FOUND,
+        )
     }
 
     students.splice(students.indexOf(student), 1)
 
-    res.status(200).json({
+    res.status(StatusCode.OK).json({
         message: "Student deleted successfully",
         data: student,
     })
-}
+})
