@@ -1,0 +1,8 @@
+[2026-05-19T13:44:30.238Z][FAILED QUERY]: INSERT INTO "users" AS "Users"("name", "email", "bio", "password", "profile_pic", "is_guest", "createdAt", "updatedAt") VALUES (DEFAULT, DEFAULT, DEFAULT, DEFAULT, DEFAULT, DEFAULT, DEFAULT, DEFAULT) RETURNING "id", "is_guest"
+[2026-05-19T13:44:30.263Z][QUERY ERROR]: error: relation "users" does not exist
+[2026-05-19T14:21:34.245Z][FAILED QUERY]: INSERT INTO "users" AS "Users"("name", "email", "bio", "password", "profile_pic", "is_guest", "createdAt", "updatedAt") VALUES (DEFAULT, DEFAULT, DEFAULT, DEFAULT, DEFAULT, DEFAULT, DEFAULT, DEFAULT) RETURNING "id", "is_guest"
+[2026-05-19T14:21:34.245Z][QUERY ERROR]: error: null value in column "name" of relation "users" violates not-null constraint
+[2026-05-19T14:36:40.176Z][FAILED QUERY]: INSERT INTO "users" AS "Users"("name", "email", "bio", "password", "profile_pic", "is_guest", "createdAt", "updatedAt") VALUES ($1, $2, $3, $4, DEFAULT, $5, DEFAULT, DEFAULT) RETURNING "id", "is_guest" -- PARAMETERS: ["John Doe","john.doe@example.com","Software engineer from California.","Admin@123",0]
+[2026-05-19T14:36:40.184Z][QUERY ERROR]: error: null value in column "createdAt" of relation "users" violates not-null constraint
+[2026-05-19T17:04:42.670Z][FAILED QUERY]: SELECT "users"."id" AS "users_id", "users"."name" AS "users_name", "users"."email" AS "users_email", "users"."bio" AS "users_bio", "users"."profile_pic", "users"."is_guest", users.created_at, users.updated_at FROM "users" "users" WHERE "users"."id" = $1 -- PARAMETERS: ["4"]
+[2026-05-19T17:04:42.699Z][QUERY ERROR]: error: column users.created_at does not exist

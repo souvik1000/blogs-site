@@ -1,5 +1,8 @@
 export const getPagination = (page: number, limit: number) => {
-    const skip = limit * (page - 1)
-    const take = limit
-    return { skip, take }
+    let pageVal = page || 1
+    let limitVal = limit || 5
+
+    const skip = limitVal * (pageVal - 1)
+    const take = limitVal
+    return { pageVal, limitVal, skip, take }
 }

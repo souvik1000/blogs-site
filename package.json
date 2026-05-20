@@ -22,7 +22,8 @@
         "reflect-metadata": "^0.2.2",
         "ts-node": "^10.9.2",
         "typeorm": "^0.3.29",
-        "typescript": "^6.0.3"
+        "typescript": "^6.0.3",
+        "yup": "^1.7.1"
     },
     "devDependencies": {
         "@types/node": "^25.8.0"

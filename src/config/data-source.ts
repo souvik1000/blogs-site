@@ -2,6 +2,7 @@ import * as dotenv from "dotenv"
 import { DataSource } from "typeorm"
 
 import { entities } from "../models/index.model"
+import { userOrderEntities } from "../practice/day-two/models"
 
 dotenv.config()
 
@@ -16,7 +17,7 @@ export const AppDataSource = new DataSource({
     logging: ["error"],
     logger: "file",
     ssl: { rejectUnauthorized: false },
-    entities: entities,
+    entities: [...entities, ...userOrderEntities],
     subscribers: [],
     migrations: [],
 })
