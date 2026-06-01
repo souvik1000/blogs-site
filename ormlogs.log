@@ -98,3 +98,16 @@
 [2026-06-01T08:21:04.374Z][QUERY]: INSERT INTO "migrations"("timestamp", "name") VALUES ($1, $2) -- PARAMETERS: [1780298801979,"Init1780298801979"]
 [2026-06-01T08:21:04.378Z]Migration Init1780298801979 has been executed successfully.
 [2026-06-01T08:21:04.378Z][QUERY]: COMMIT
+[2026-06-01T09:47:13.830Z][QUERY]: SELECT version()
+[2026-06-01T09:47:13.835Z][QUERY]: SELECT * FROM current_schema()
+[2026-06-01T09:47:13.847Z][QUERY]: SELECT * FROM "information_schema"."tables" WHERE "table_schema" = 'public' AND "table_name" = 'migrations'
+[2026-06-01T09:47:14.352Z][QUERY]: SELECT * FROM "migrations" "migrations" ORDER BY "id" DESC
+[2026-06-01T09:47:14.564Z]2 migrations are already loaded in the database.
+[2026-06-01T09:47:14.564Z]3 migrations were found in the source code.
+[2026-06-01T09:47:14.564Z]Init1780298801979 is the last executed migration. It was executed on Mon Jun 01 2026 12:56:41 GMT+0530 (India Standard Time).
+[2026-06-01T09:47:14.564Z]1 migrations are new migrations must be executed.
+[2026-06-01T09:47:14.565Z][QUERY]: START TRANSACTION
+[2026-06-01T09:47:14.566Z][QUERY]: CREATE INDEX "IDX_2d4a15c7f8b3864a5465fb687e" ON "users" ("name", "email") 
+[2026-06-01T09:47:14.670Z][QUERY]: INSERT INTO "migrations"("timestamp", "name") VALUES ($1, $2) -- PARAMETERS: [1780303477056,"Init1780303477056"]
+[2026-06-01T09:47:14.673Z]Migration Init1780303477056 has been executed successfully.
+[2026-06-01T09:47:14.674Z][QUERY]: COMMIT

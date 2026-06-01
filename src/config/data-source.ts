@@ -1,10 +1,9 @@
 import * as dotenv from "dotenv"
 import { DataSource } from "typeorm"
 
+import migrations from "../migrations"
 import { entities } from "../models/index.model"
 import { userOrderEntities } from "../practice/day-two/models"
-import { Init1780262304621 } from "../migrations/1780262304621-Init"
-import { Init1780298801979 } from "../migrations/1780298801979-Init"
 
 dotenv.config()
 
@@ -21,5 +20,5 @@ export const AppDataSource = new DataSource({
     // ssl: { rejectUnauthorized: false },
     entities: [...entities, ...userOrderEntities],
     subscribers: [],
-    migrations: [Init1780262304621, Init1780298801979],
+    migrations: migrations,
 })

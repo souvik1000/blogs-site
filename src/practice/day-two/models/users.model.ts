@@ -4,9 +4,11 @@ import {
     BeforeInsert,
     BeforeUpdate,
     PrimaryGeneratedColumn,
+    Index,
 } from "typeorm"
 
 @Entity("users")
+@Index(["name", "email"])
 export class Users {
     @PrimaryGeneratedColumn("increment")
     id: number
