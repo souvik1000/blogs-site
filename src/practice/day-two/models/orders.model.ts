@@ -1,4 +1,5 @@
 import {
+    Index,
     Entity,
     Column,
     BeforeInsert,
@@ -11,6 +12,7 @@ export class Orders {
     @PrimaryGeneratedColumn("increment")
     id: number
 
+    @Index()
     @Column("integer", { nullable: false, name: "user_id" })
     userId: number
 

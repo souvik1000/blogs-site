@@ -6,3 +6,95 @@
 [2026-05-19T14:36:40.184Z][QUERY ERROR]: error: null value in column "createdAt" of relation "users" violates not-null constraint
 [2026-05-19T17:04:42.670Z][FAILED QUERY]: SELECT "users"."id" AS "users_id", "users"."name" AS "users_name", "users"."email" AS "users_email", "users"."bio" AS "users_bio", "users"."profile_pic", "users"."is_guest", users.created_at, users.updated_at FROM "users" "users" WHERE "users"."id" = $1 -- PARAMETERS: ["4"]
 [2026-05-19T17:04:42.699Z][QUERY ERROR]: error: column users.created_at does not exist
+[2026-05-25T05:55:06.257Z][FAILED QUERY]: INSERT INTO "users" AS "Users"("name", "email", "bio", "password", "profile_pic", "is_guest", "createdAt", "updatedAt") VALUES ($1, $2, $3, $4, DEFAULT, $5, $6, $7) RETURNING "id", "is_guest" -- PARAMETERS: ["Souvik Ghosh","ghosh.souvik@rq.com","Software engineer from India.","Admin@123",0,"2026-05-25T05:55:06.249Z","2026-05-25T05:55:06.249Z"]
+[2026-05-25T05:55:06.257Z][QUERY ERROR]: error: duplicate key value violates unique constraint "UQ_97672ac88f789774dd47f7c8be3"
+[2026-05-25T05:55:49.269Z][FAILED QUERY]: UPDATE "users" SET "email" = $1, "updatedAt" = $2 WHERE "id" IN ($3) -- PARAMETERS: ["Souvik.Ghosh@rootquotient.com","2026-05-25T05:55:49.260Z",5]
+[2026-05-25T05:55:49.269Z][QUERY ERROR]: error: duplicate key value violates unique constraint "UQ_97672ac88f789774dd47f7c8be3"
+[2026-05-25T05:58:19.075Z][FAILED QUERY]: UPDATE "users" SET "email" = $1, "updatedAt" = $2 WHERE "id" IN ($3) -- PARAMETERS: ["Souvik.Ghosh@rootquotient.com","2026-05-25T05:58:19.062Z",5]
+[2026-05-25T05:58:19.075Z][QUERY ERROR]: error: duplicate key value violates unique constraint "UQ_97672ac88f789774dd47f7c8be3"
+[2026-05-25T06:01:15.325Z][FAILED QUERY]: UPDATE "users" SET "email" = $1, "updatedAt" = $2 WHERE "id" IN ($3) -- PARAMETERS: ["Souvik.Ghosh@rootquotient.com","2026-05-25T06:01:15.311Z",5]
+[2026-05-25T06:01:15.325Z][QUERY ERROR]: error: duplicate key value violates unique constraint "UQ_97672ac88f789774dd47f7c8be3"
+[2026-05-31T20:31:40.896Z][QUERY]: SELECT version()
+[2026-05-31T20:31:40.913Z][QUERY]: SELECT * FROM current_schema()
+[2026-05-31T20:31:40.920Z][QUERY]: START TRANSACTION
+[2026-05-31T20:31:40.921Z][QUERY]: SELECT 'DROP VIEW IF EXISTS "' || schemaname || '"."' || viewname || '" CASCADE;' as "query" FROM "pg_views" WHERE "schemaname" IN (current_schema()) AND "viewname" NOT IN ('geography_columns', 'geometry_columns', 'raster_columns', 'raster_overviews')
+[2026-05-31T20:31:40.936Z][QUERY]: SELECT 'DROP MATERIALIZED VIEW IF EXISTS "' || schemaname || '"."' || matviewname || '" CASCADE;' as "query" FROM "pg_matviews" WHERE "schemaname" IN (current_schema())
+[2026-05-31T20:31:40.939Z][QUERY]: SELECT 'DROP TABLE IF EXISTS "' || schemaname || '"."' || tablename || '" CASCADE;' as "query" FROM "pg_tables" WHERE "schemaname" IN (current_schema()) AND "tablename" NOT IN ('spatial_ref_sys')
+[2026-05-31T20:31:40.941Z][QUERY]: DROP TABLE IF EXISTS "public"."blogs" CASCADE;
+[2026-05-31T20:31:40.950Z][QUERY]: DROP TABLE IF EXISTS "public"."users" CASCADE;
+[2026-05-31T20:31:40.952Z][QUERY]: DROP TABLE IF EXISTS "public"."orders" CASCADE;
+[2026-05-31T20:31:40.960Z][QUERY]: SELECT 'DROP TYPE IF EXISTS "' || n.nspname || '"."' || t.typname || '" CASCADE;' as "query" FROM "pg_type" "t" INNER JOIN "pg_enum" "e" ON "e"."enumtypid" = "t"."oid" INNER JOIN "pg_namespace" "n" ON "n"."oid" = "t"."typnamespace" WHERE "n"."nspname" IN (current_schema()) GROUP BY "n"."nspname", "t"."typname"
+[2026-05-31T20:31:40.965Z][QUERY]: COMMIT
+[2026-05-31T21:21:41.510Z][QUERY]: SELECT version()
+[2026-05-31T21:21:41.522Z][QUERY]: SELECT * FROM current_schema()
+[2026-05-31T21:21:41.537Z][QUERY]: SELECT * FROM "information_schema"."tables" WHERE "table_schema" = 'public' AND "table_name" = 'migrations'
+[2026-05-31T21:21:41.552Z][QUERY]: CREATE TABLE "migrations" ("id" SERIAL NOT NULL, "timestamp" bigint NOT NULL, "name" character varying NOT NULL, CONSTRAINT "PK_8c82d7f526340ab734260ea46be" PRIMARY KEY ("id"))
+[2026-05-31T21:21:41.607Z][QUERY]: SELECT * FROM "migrations" "migrations" ORDER BY "id" DESC
+[2026-05-31T21:21:41.610Z]No migrations are pending
+[2026-05-31T21:21:48.418Z][QUERY]: SELECT version()
+[2026-05-31T21:21:48.420Z][QUERY]: SELECT * FROM current_schema()
+[2026-05-31T21:21:48.425Z][QUERY]: SELECT * FROM "information_schema"."tables" WHERE "table_schema" = 'public' AND "table_name" = 'migrations'
+[2026-05-31T21:21:48.438Z][QUERY]: SELECT * FROM "migrations" "migrations" ORDER BY "id" DESC
+[2026-05-31T21:21:48.439Z]No migrations are pending
+[2026-05-31T21:23:45.740Z][QUERY]: SELECT version()
+[2026-05-31T21:23:45.743Z][QUERY]: SELECT * FROM current_schema()
+[2026-05-31T21:23:45.749Z][QUERY]: SELECT * FROM "information_schema"."tables" WHERE "table_schema" = 'public' AND "table_name" = 'migrations'
+[2026-05-31T21:23:45.762Z][QUERY]: SELECT * FROM "migrations" "migrations" ORDER BY "id" DESC
+[2026-05-31T21:23:45.765Z]0 migrations are already loaded in the database.
+[2026-05-31T21:23:45.765Z]1 migrations were found in the source code.
+[2026-05-31T21:23:45.765Z]1 migrations are new migrations must be executed.
+[2026-05-31T21:23:45.765Z][QUERY]: START TRANSACTION
+[2026-05-31T21:23:45.766Z][QUERY]: CREATE TABLE "blogs" ("id" SERIAL NOT NULL, "title" character varying(127) NOT NULL, "subtitle" character varying(255) NOT NULL, "content" text NOT NULL, "author" character varying(63) NOT NULL, CONSTRAINT "PK_e113335f11c926da929a625f118" PRIMARY KEY ("id"))
+[2026-05-31T21:23:45.799Z][QUERY]: CREATE TABLE "users" ("id" SERIAL NOT NULL, "name" character varying(48) NOT NULL, "email" character varying(64) NOT NULL, "bio" character varying(255), "password" character varying(32) NOT NULL, "profile_pic" character varying(64), "is_guest" boolean NOT NULL DEFAULT false, "createdAt" TIMESTAMP NOT NULL, "updatedAt" TIMESTAMP NOT NULL, CONSTRAINT "UQ_97672ac88f789774dd47f7c8be3" UNIQUE ("email"), CONSTRAINT "PK_a3ffb1c0c8416b9fc6f907b7433" PRIMARY KEY ("id"))
+[2026-05-31T21:23:45.805Z][QUERY]: CREATE TABLE "orders" ("id" SERIAL NOT NULL, "user_id" integer NOT NULL, "product_id" integer NOT NULL DEFAULT '1', "status" character varying(48) NOT NULL, "amount" numeric NOT NULL, "created_at" TIMESTAMP NOT NULL DEFAULT '"2026-05-31T21:18:25.708Z"', "updated_at" TIMESTAMP NOT NULL DEFAULT '"2026-05-31T21:18:25.708Z"', CONSTRAINT "PK_710e2d4957aa5878dfe94e4ac2f" PRIMARY KEY ("id"))
+[2026-05-31T21:23:45.817Z][QUERY]: INSERT INTO "migrations"("timestamp", "name") VALUES ($1, $2) -- PARAMETERS: [1780262304621,"Init1780262304621"]
+[2026-05-31T21:23:45.820Z]Migration Init1780262304621 has been executed successfully.
+[2026-05-31T21:23:45.820Z][QUERY]: COMMIT
+[2026-05-31T21:23:52.968Z][X] 1 Init1780262304621
+[2026-05-31T21:25:01.539Z][X] 1 Init1780262304621
+[2026-05-31T21:25:24.736Z][QUERY]: SELECT version()
+[2026-05-31T21:25:24.739Z][QUERY]: SELECT * FROM current_schema()
+[2026-05-31T21:25:24.744Z][QUERY]: SELECT * FROM "information_schema"."tables" WHERE "table_schema" = 'public' AND "table_name" = 'migrations'
+[2026-05-31T21:25:24.753Z][QUERY]: SELECT * FROM "migrations" "migrations" ORDER BY "id" DESC
+[2026-05-31T21:25:24.756Z]1 migrations are already loaded in the database.
+[2026-05-31T21:25:24.756Z]Init1780262304621 is the last executed migration. It was executed on Mon Jun 01 2026 02:48:24 GMT+0530 (India Standard Time).
+[2026-05-31T21:25:24.756Z]Now reverting it...
+[2026-05-31T21:25:24.756Z][QUERY]: START TRANSACTION
+[2026-05-31T21:25:24.760Z][QUERY]: DROP TABLE "orders"
+[2026-05-31T21:25:24.778Z][QUERY]: DROP TABLE "users"
+[2026-05-31T21:25:24.779Z][QUERY]: DROP TABLE "blogs"
+[2026-05-31T21:25:24.781Z][QUERY]: DELETE FROM "migrations" WHERE "timestamp" = $1 AND "name" = $2 -- PARAMETERS: [1780262304621,"Init1780262304621"]
+[2026-05-31T21:25:24.785Z]Migration Init1780262304621 has been reverted successfully.
+[2026-05-31T21:25:24.785Z][QUERY]: COMMIT
+[2026-05-31T21:25:53.168Z][QUERY]: SELECT version()
+[2026-05-31T21:25:53.171Z][QUERY]: SELECT * FROM current_schema()
+[2026-05-31T21:25:53.176Z][QUERY]: SELECT * FROM "information_schema"."tables" WHERE "table_schema" = 'public' AND "table_name" = 'migrations'
+[2026-05-31T21:25:53.184Z][QUERY]: SELECT * FROM "migrations" "migrations" ORDER BY "id" DESC
+[2026-05-31T21:25:53.186Z]0 migrations are already loaded in the database.
+[2026-05-31T21:25:53.186Z]1 migrations were found in the source code.
+[2026-05-31T21:25:53.186Z]1 migrations are new migrations must be executed.
+[2026-05-31T21:25:53.187Z][QUERY]: START TRANSACTION
+[2026-05-31T21:25:53.187Z][QUERY]: CREATE TABLE "blogs" ("id" SERIAL NOT NULL, "title" character varying(127) NOT NULL, "subtitle" character varying(255) NOT NULL, "content" text NOT NULL, "author" character varying(63) NOT NULL, CONSTRAINT "PK_e113335f11c926da929a625f118" PRIMARY KEY ("id"))
+[2026-05-31T21:25:53.210Z][QUERY]: CREATE TABLE "users" ("id" SERIAL NOT NULL, "name" character varying(48) NOT NULL, "email" character varying(64) NOT NULL, "bio" character varying(255), "password" character varying(32) NOT NULL, "profile_pic" character varying(64), "is_guest" boolean NOT NULL DEFAULT false, "createdAt" TIMESTAMP NOT NULL, "updatedAt" TIMESTAMP NOT NULL, CONSTRAINT "UQ_97672ac88f789774dd47f7c8be3" UNIQUE ("email"), CONSTRAINT "PK_a3ffb1c0c8416b9fc6f907b7433" PRIMARY KEY ("id"))
+[2026-05-31T21:25:53.221Z][QUERY]: CREATE TABLE "orders" ("id" SERIAL NOT NULL, "user_id" integer NOT NULL, "product_id" integer NOT NULL DEFAULT '1', "status" character varying(48) NOT NULL, "amount" numeric NOT NULL, "created_at" TIMESTAMP NOT NULL DEFAULT '"2026-05-31T21:18:25.708Z"', "updated_at" TIMESTAMP NOT NULL DEFAULT '"2026-05-31T21:18:25.708Z"', CONSTRAINT "PK_710e2d4957aa5878dfe94e4ac2f" PRIMARY KEY ("id"))
+[2026-05-31T21:25:53.228Z][QUERY]: INSERT INTO "migrations"("timestamp", "name") VALUES ($1, $2) -- PARAMETERS: [1780262304621,"Init1780262304621"]
+[2026-05-31T21:25:53.230Z]Migration Init1780262304621 has been executed successfully.
+[2026-05-31T21:25:53.230Z][QUERY]: COMMIT
+[2026-06-01T07:27:42.909Z][QUERY]: SELECT version()
+[2026-06-01T07:27:42.912Z][QUERY]: SELECT * FROM current_schema()
+[2026-06-01T07:27:42.919Z][QUERY]: SELECT * FROM "information_schema"."tables" WHERE "table_schema" = 'public' AND "table_name" = 'migrations'
+[2026-06-01T07:27:42.928Z][QUERY]: SELECT * FROM "migrations" "migrations" ORDER BY "id" DESC
+[2026-06-01T07:27:42.932Z]No migrations are pending
+[2026-06-01T08:21:04.306Z][QUERY]: SELECT version()
+[2026-06-01T08:21:04.320Z][QUERY]: SELECT * FROM current_schema()
+[2026-06-01T08:21:04.330Z][QUERY]: SELECT * FROM "information_schema"."tables" WHERE "table_schema" = 'public' AND "table_name" = 'migrations'
+[2026-06-01T08:21:04.350Z][QUERY]: SELECT * FROM "migrations" "migrations" ORDER BY "id" DESC
+[2026-06-01T08:21:04.355Z]1 migrations are already loaded in the database.
+[2026-06-01T08:21:04.355Z]2 migrations were found in the source code.
+[2026-06-01T08:21:04.355Z]Init1780262304621 is the last executed migration. It was executed on Mon Jun 01 2026 02:48:24 GMT+0530 (India Standard Time).
+[2026-06-01T08:21:04.355Z]1 migrations are new migrations must be executed.
+[2026-06-01T08:21:04.356Z][QUERY]: START TRANSACTION
+[2026-06-01T08:21:04.356Z][QUERY]: CREATE INDEX "IDX_a922b820eeef29ac1c6800e826" ON "orders" ("user_id") 
+[2026-06-01T08:21:04.374Z][QUERY]: INSERT INTO "migrations"("timestamp", "name") VALUES ($1, $2) -- PARAMETERS: [1780298801979,"Init1780298801979"]
+[2026-06-01T08:21:04.378Z]Migration Init1780298801979 has been executed successfully.
+[2026-06-01T08:21:04.378Z][QUERY]: COMMIT

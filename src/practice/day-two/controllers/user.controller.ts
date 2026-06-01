@@ -89,8 +89,12 @@ export const updateUser = asyncHandler(async (req: Request, res: Response) => {
     }
 
     const updatedData = userRepository.merge(user, req.body)
-    console.log("updatedData", updatedData)
-    const updatedUser = await userRepository.save(updatedData)
+    const updatedUser = await userRepository
+        .createQueryBuilder()
+        .update(Users)
+        .set(updatedData)
+        .where("id = :id", { id })
+        .execute()
 
     return res.status(StatusCode.OK).json({
         data: updatedUser,
