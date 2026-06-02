@@ -12,20 +12,15 @@ const userRepository = AppDataSource.getRepository(Users)
 const orderRepository = AppDataSource.getRepository(Orders)
 
 export const getOrders = asyncHandler(async (req: Request, res: Response) => {
-    const { userId, limit, page } = req.query ?? {}
+    const { limit, page } = req.query ?? {}
 
     const { skip, take, pageVal, limitVal } = getPagination(
         Number(page),
         Number(limit),
     )
 
-    if (!userId) {
-        throw new AppError(StatusCode.BAD_REQUEST, "User id is required")
-    }
-
     const [orders, totalOrders] = await orderRepository
         .createQueryBuilder("orders")
-        .where("orders.userId = :userId", { userId })
         .skip(skip)
         .take(take)
         .getManyAndCount()

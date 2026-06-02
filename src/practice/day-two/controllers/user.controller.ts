@@ -1,6 +1,8 @@
 import { Request, Response } from "express"
 
+import { EntityManager } from "typeorm"
 import { Users } from "../models/users.model"
+import { Orders } from "../models/orders.model"
 import { StatusCode } from "../../../enums/statusCode"
 import { AppDataSource } from "../../../config/data-source"
 import { AppError, asyncHandler } from "../../../utils/error"
@@ -89,7 +91,7 @@ export const updateUser = asyncHandler(async (req: Request, res: Response) => {
     }
 
     const updatedData = userRepository.merge(user, req.body)
-    const updatedUser = await userRepository
+    await userRepository
         .createQueryBuilder()
         .update(Users)
         .set(updatedData)
@@ -97,7 +99,7 @@ export const updateUser = asyncHandler(async (req: Request, res: Response) => {
         .execute()
 
     return res.status(StatusCode.OK).json({
-        data: updatedUser,
+        data: updatedData,
         success: true,
         message: "User updated successfully",
     })
@@ -109,16 +111,23 @@ export const deleteUser = asyncHandler(async (req: Request, res: Response) => {
     if (!id) {
         throw new AppError(StatusCode.BAD_REQUEST, "User id is required")
     }
+    await AppDataSource.transaction(async (manager: EntityManager) => {
+        await manager
+            .createQueryBuilder()
+            .delete()
+            .from(Orders)
+            .where("user_id = :id", { id })
+            .execute()
 
-    await userRepository
-        .createQueryBuilder()
-        .delete()
-        .from(Users)
-        .where("id = :id", { id })
-        .execute()
+        await manager
+            .createQueryBuilder()
+            .delete()
+            .from(Users)
+            .where("id = :id", { id })
+            .execute()
+    })
 
     return res.status(StatusCode.OK).json({
-        data: null,
         success: true,
         message: "User deleted successfully",
     })

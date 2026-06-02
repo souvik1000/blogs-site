@@ -5,3 +5,7 @@ dist/
 .env
 
 .DS_Store
+
+# Used for the dummy data
+src/practice/day-two/data
+src/practice/day-two/scripts

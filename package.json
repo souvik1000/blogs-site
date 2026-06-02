@@ -7,7 +7,7 @@
         "dev": "nodemon src/index.ts",
         "start": "ts-node src/index.ts",
         "build": "tsc",
-        "test": "echo \"Error: no test specified\" && exit 1",
+        "test": "jest",
         "typeorm": "typeorm-ts-node-commonjs",
         "migration:generate": "npm run typeorm -- migration:generate ./src/migrations/Init -d ./src/config/data-source.ts",
         "migration:run": "npm run typeorm -- migration:run -d ./src/config/data-source.ts",
@@ -31,6 +31,11 @@
         "yup": "^1.7.1"
     },
     "devDependencies": {
-        "@types/node": "^25.8.0"
+        "@types/jest": "^30.0.0",
+        "@types/node": "^25.8.0",
+        "@types/supertest": "^7.2.0",
+        "jest": "^30.4.2",
+        "supertest": "^7.2.2",
+        "ts-jest": "^29.4.11"
     }
 }
